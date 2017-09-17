@@ -51,6 +51,7 @@ I first tried the same model i used in the Traffic sign  classifier project [a m
 After this, I tried the [NVidia self driving Model](https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/) model as suggested in the udacity lesson, and after collecting data and training it on the AWS
 
 A model summary is as follows:
+```
 ____________________________________________________________________________________________________
 Layer (type)                     Output Shape          Param #     Connected to                     
 ====================================================================================================
@@ -85,7 +86,7 @@ dense_5 (Dense)                  (None, 1)             11          dense_4[0][0]
 Total params: 2,712,951
 Trainable params: 2,712,951
 Non-trainable params: 0
-
+```
 
 <figure>
     <img src="https://devblogs.nvidia.com/parallelforall/wp-content/uploads/2016/08/cnn-architecture.png" height="270" width="480" />
