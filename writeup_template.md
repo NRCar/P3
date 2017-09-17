@@ -105,9 +105,9 @@ Training data was chosen to keep the vehicle driving on the road. I used a combi
 
 I drove the car mutiple times and was able to collect the data into mutiple folders each with different driving behavior, 
 ie
-* one: where i drove slowly and in the center
-* two: I drove fast as possible with earatic behavior and recovering
-* three: drove on average at 10mph and did a mix of both one and two above
+* **data1**: where i drove slowly and in the center
+* **data2**: I drove fast as possible with earatic behavior and recovering
+* **data3**: drove on average at 10mph and did a mix of both one and two above
 
 This generated enough data and i was able to run the model as:
 
@@ -124,7 +124,7 @@ For details about how I created the training data, see the next section.
 
 ###Model Architecture and Training Strategy
 
-####1. Solution Design Approach
+#### 1. Solution Design Approach
 
 The overall strategy for deriving a model architecture was to try image classification model that i had used earlier in the traffic sign classification project but when that did not work as expected I decided to try the mode powerful Nvidia model as per the suggestion the project lesson.
 
@@ -137,12 +137,12 @@ The final step was to run the simulator to see how well the car was driving arou
 
 Training for lower number of epochs seemed to do better but not always.
 
-####2. Final Model Architecture
+#### 2. Final Model Architecture
 
 The final model architecture is  what was decribed in a prior section. But using check pointing to only get the weights that corresponded to the best validation loss helped pick the best model even when running for large number of epochs.
 
 
-####3. Creation of the Training Set & Training Process
+#### 3. Creation of the Training Set & Training Process
 
 For each line in a csv file I used all three images and corrected the left and right images by adjusting the steering by 0.2 as suggested in the lessons.
 
