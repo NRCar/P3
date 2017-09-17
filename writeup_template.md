@@ -154,20 +154,20 @@ For each line in a csv file I used all three images and corrected the left and r
 Original Data:
 
 <figure>
-    <img src="https://github.com/NRCar/P3/blob/master/examples/center.jpg"/>
     <figcaption text-align: center>Center Image</figcaption>
+    <img src="https://github.com/NRCar/P3/blob/master/examples/center.jpg"/>
 </figure>
 
 
 <figure>
-    <img src="https://github.com/NRCar/P3/blob/master/examples/left.jpg"/>
     <figcaption text-align: center>Left Image</figcaption>
+    <img src="https://github.com/NRCar/P3/blob/master/examples/left.jpg"/>
 </figure>
 
 
 <figure>
-    <img src="https://github.com/NRCar/P3/blob/master/examples/right.jpg"/>
     <figcaption text-align: center>Right Image</figcaption>
+    <img src="https://github.com/NRCar/P3/blob/master/examples/right.jpg"/>
 </figure>
 
 
@@ -183,13 +183,13 @@ I used this training data for training the model. The validation set helped dete
 
 Augumented Data:
 
-<figure>    
-    <img src="https://github.com/NRCar/P3/blob/master/examples/augumented_1.jpg"/>
+<figure>  
     <figcaption text-align: center>Augmented Image 1 (Brightness and skewed) </figcaption>
+    <img src="https://github.com/NRCar/P3/blob/master/examples/augumented_1.jpg"/>    
 </figure>
 
 
 <figure>
-    <img src="https://github.com/NRCar/P3/blob/master/examples/augumented_2.jpg"/>
     <figcaption text-align: center>Augmented Image 2 (Brightness and skewed)</figcaption>
+    <img src="https://github.com/NRCar/P3/blob/master/examples/augumented_2.jpg"/>
 </figure>
