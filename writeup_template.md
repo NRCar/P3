@@ -1,11 +1,3 @@
-#**Behavioral Cloning** 
-
-##Writeup Template
-
-###You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
-
----
-
 **Behavioral Cloning Project**
 
 The goals / steps of this project are the following:
@@ -27,50 +19,116 @@ The goals / steps of this project are the following:
 [image7]: ./examples/placeholder_small.png "Flipped Image"
 
 ## Rubric Points
-###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
+### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
 
 ---
-###Files Submitted & Code Quality
+### Files Submitted & Code Quality
 
-####1. Submission includes all required files and can be used to run the simulator in autonomous mode
+#### 1. Submission includes all required files and can be used to run the simulator in autonomous mode
 
 My project includes the following files:
-* model.py containing the script to create and train the model
-* drive.py for driving the car in autonomous mode
-* model.h5 containing a trained convolution neural network 
-* writeup_report.md or writeup_report.pdf summarizing the results
+* **model.py** containing the script to create and train the model
+* **drive.py** for driving the car in autonomous mode
+* **model.h5** containing a trained convolution neural network 
+* **writeup_report.md** Summarizing the results
+* **video.mp4** containing a recorded capture on track 1
 
-####2. Submission includes functional code
+#### 2. Submission includes functional code
 Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the track by executing 
 ```sh
 python drive.py model.h5
 ```
 
-####3. Submission code is usable and readable
+#### 3. Submission code is usable and readable
 
 The model.py file contains the code for training and saving the convolution neural network. The file shows the pipeline I used for training and validating the model, and it contains comments to explain how the code works.
 
-###Model Architecture and Training Strategy
+### Model Architecture and Training Strategy
 
-####1. An appropriate model architecture has been employed
+#### 1. An appropriate model architecture has been employed
 
-My model consists of a convolution neural network with 3x3 filter sizes and depths between 32 and 128 (model.py lines 18-24) 
+I first tried the same model i used in the Traffic sign  classifier project [a modified version of **LeNet** ], but the model had terrible performance and the car went off the road after some amount of bad driving.
+After this, I tried the [NVidia self driving Model](https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/) model as suggested in the udacity lesson, and after collecting data and training it on the AWS
 
-The model includes RELU layers to introduce nonlinearity (code line 20), and the data is normalized in the model using a Keras lambda layer (code line 18). 
+A model summary is as follows:
+____________________________________________________________________________________________________
+Layer (type)                     Output Shape          Param #     Connected to                     
+====================================================================================================
+lambda_1 (Lambda)                (None, 160, 320, 3)   0           lambda_input_1[0][0]             
+____________________________________________________________________________________________________
+cropping2d_1 (Cropping2D)        (None, 65, 320, 3)    0           lambda_1[0][0]                   
+____________________________________________________________________________________________________
+convolution2d_1 (Convolution2D)  (None, 31, 158, 24)   1824        cropping2d_1[0][0]               
+____________________________________________________________________________________________________
+convolution2d_2 (Convolution2D)  (None, 14, 77, 36)    21636       convolution2d_1[0][0]            
+____________________________________________________________________________________________________
+convolution2d_3 (Convolution2D)  (None, 5, 37, 48)     43248       convolution2d_2[0][0]            
+____________________________________________________________________________________________________
+dropout_1 (Dropout)              (None, 5, 37, 48)     0           convolution2d_3[0][0]            
+____________________________________________________________________________________________________
+convolution2d_4 (Convolution2D)  (None, 3, 35, 64)     27712       dropout_1[0][0]                  
+____________________________________________________________________________________________________
+convolution2d_5 (Convolution2D)  (None, 1, 33, 64)     36928       convolution2d_4[0][0]            
+____________________________________________________________________________________________________
+flatten_1 (Flatten)              (None, 2112)          0           convolution2d_5[0][0]            
+____________________________________________________________________________________________________
+dense_1 (Dense)                  (None, 1164)          2459532     flatten_1[0][0]                  
+____________________________________________________________________________________________________
+dense_2 (Dense)                  (None, 100)           116500      dense_1[0][0]                    
+____________________________________________________________________________________________________
+dense_3 (Dense)                  (None, 50)            5050        dense_2[0][0]                    
+____________________________________________________________________________________________________
+dense_4 (Dense)                  (None, 10)            510         dense_3[0][0]                    
+____________________________________________________________________________________________________
+dense_5 (Dense)                  (None, 1)             11          dense_4[0][0]                    
+====================================================================================================
+Total params: 2,712,951
+Trainable params: 2,712,951
+Non-trainable params: 0
 
-####2. Attempts to reduce overfitting in the model
 
-The model contains dropout layers in order to reduce overfitting (model.py lines 21). 
+<figure>
+    <img src="https://devblogs.nvidia.com/parallelforall/wp-content/uploads/2016/08/cnn-architecture.png" height="270" width="480" />
+    <figcaption text-align: center>Nvidia Model</figcaption>
+</figure>
 
-The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 10-16). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
-####3. Model parameter tuning
 
-The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 25).
+#### 2. Attempts to reduce overfitting in the model
 
-####4. Appropriate training data
+Dropout and Maxpooling seem to be counter intutive to the model and seem to not give as a good performance as the model directly as described. I instead added a **relu** activation to each layer except the last. 
 
-Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road ... 
+For the last layer the activation used was **tanh** to ensure the steering was between -1 and +1
+
+I trained the model for 20 epochs and then used the keras checkpointing to save only the best version of the weights, optimizing for the validation loss. I then picked the best model generated and used that to drive the car.
+
+
+
+#### 3. Model parameter tuning
+
+The model used an adam optimizer, so the learning rate was not tuned manually.
+But i did use a initial training rate of 0.0001
+
+#### 4. Appropriate training data
+
+Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road.
+
+I drove the car mutiple times and was able to collect the data into mutiple folders each with different driving behavior, 
+ie
+* one: where i drove slowly and in the center
+* two: I drove fast as possible with earatic behavior and recovering
+* three: drove on average at 10mph and did a mix of both one and two above
+
+This generated enough data and i was able to run the model as:
+
+
+```sh
+python model.py -d "data1;data2;data3"
+
+```
+
+this collated teh data from the folders data1, data2 and data3 into one massive data set.
+
 
 For details about how I created the training data, see the next section. 
 
