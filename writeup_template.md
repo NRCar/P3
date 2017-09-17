@@ -190,6 +190,6 @@ Augumented Data:
 
 
 <figure>
-    <figcaption text-align: center>Augmented Image 2 (Brightness and skewed)</figcaption>
+    <figcaption text-align: center>Augmented Image 2 (Brightness and skewed + Flipped)</figcaption>
     <img src="https://github.com/NRCar/P3/blob/master/examples/augumented_2.jpg"/>
 </figure>
