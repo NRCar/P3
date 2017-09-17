@@ -183,13 +183,13 @@ I used this training data for training the model. The validation set helped dete
 
 Augumented Data:
 
-<figure>
+<figure>    
     <img src="https://github.com/NRCar/P3/blob/master/examples/augumented_1.jpg"/>
-    <figcaption text-align: center>Center Image</figcaption>
+    <figcaption text-align: center>Augmented Image 1 (Brightness and skewed) </figcaption>
 </figure>
 
 
 <figure>
     <img src="https://github.com/NRCar/P3/blob/master/examples/augumented_2.jpg"/>
-    <figcaption text-align: center>Center Image</figcaption>
+    <figcaption text-align: center>Augmented Image 2 (Brightness and skewed)</figcaption>
 </figure>
