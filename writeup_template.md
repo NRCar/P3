@@ -89,7 +89,7 @@ Non-trainable params: 0
 ```
 
 <figure>
-    <img src="https://devblogs.nvidia.com/parallelforall/wp-content/uploads/2016/08/cnn-architecture.png" height="270" width="480" />
+    <img src="https://devblogs.nvidia.com/parallelforall/wp-content/uploads/2016/08/cnn-architecture.png" height="600" width="400" />
     <figcaption text-align: center>Nvidia Model</figcaption>
 </figure>
 
