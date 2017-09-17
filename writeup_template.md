@@ -39,6 +39,12 @@ The model.py file contains the code for training and saving the convolution neur
 I first tried the same model i used in the Traffic sign  classifier project [a modified version of **LeNet** ], but the model had terrible performance and the car went off the road after some amount of bad driving.
 After this, I tried the [NVidia self driving Model](https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/) model as suggested in the udacity lesson, and after collecting data and training it on the AWS
 
+I modified the model to add a lambda layer for normalization and then crop the top (removing the background) and the bottom (removing the car hood) to allow the model to work only on the road information. At each layer the activation used for "relu"
+
+I also added a dense layer (dense_5) with an output of 1 and a "tanh" activation to only output steering between -1 and +1.
+
+To prevent overfitting i used one dropout layer. ( additional dropout did not seem to help much)
+
 A model summary is as follows:
 ```
 ____________________________________________________________________________________________________
@@ -86,7 +92,7 @@ Non-trainable params: 0
 
 #### 2. Attempts to reduce overfitting in the model
 
-Dropout and Maxpooling seem to be counter intutive to the model and seem to not give as a good performance as the model directly as described. I instead added a **relu** activation to each layer except the last. 
+Dropout and Maxpooling seem to be counter intutive to the model and seem to not give as a good performance as the model directly as described. I only used one dropout layer since i wanted to prevent overfitting. I added a **relu** activation to each layer except the last. 
 
 For the last layer the activation used was **tanh** to ensure the steering was between -1 and +1
 
@@ -145,6 +151,25 @@ The final model architecture is  what was decribed in a prior section. But using
 #### 3. Creation of the Training Set & Training Process
 
 For each line in a csv file I used all three images and corrected the left and right images by adjusting the steering by 0.2 as suggested in the lessons.
+Original Data:
+
+<figure>
+    <img src="https://github.com/NRCar/P3/blob/master/examples/center.jpg"/>
+    <figcaption text-align: center>Center Image</figcaption>
+</figure>
+
+
+<figure>
+    <img src="https://github.com/NRCar/P3/blob/master/examples/left.jpg"/>
+    <figcaption text-align: center>Left Image</figcaption>
+</figure>
+
+
+<figure>
+    <img src="https://github.com/NRCar/P3/blob/master/examples/right.jpg"/>
+    <figcaption text-align: center>Right Image</figcaption>
+</figure>
+
 
 To augment the data sat, I also flipped images and angles. I also randomized the brightness of the images to overcome shadows.
 I also used image skewing to move the iamge and to simulate curves and the cases where i drove off the road and fixed up the steering with a factor of 0.004 for every pixel i moved.
@@ -154,3 +179,17 @@ Since i used a generator to augument data, I had an almost infinite pool of trai
 NOTE: i only augumented the validation data using brightness and flipping but not by skewing.
 
 I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 13 since the 13/20 epoch was captured by the checkpoint capture.
+
+
+Augumented Data:
+
+<figure>
+    <img src="https://github.com/NRCar/P3/blob/master/examples/augumented_1.jpg"/>
+    <figcaption text-align: center>Center Image</figcaption>
+</figure>
+
+
+<figure>
+    <img src="https://github.com/NRCar/P3/blob/master/examples/augumented_2.jpg"/>
+    <figcaption text-align: center>Center Image</figcaption>
+</figure>
